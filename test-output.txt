@@ -1,14 +1,14 @@
 
  RUN  v3.0.5 /home/alcopine_x/Moringa/Mod3/react-hooks-toy-tales-vite
 
- ✓ src/__tests__/Like.test.jsx (1 test) 79ms
- ✓ src/__tests__/Donate.test.jsx (1 test) 111ms
- ❯ src/__tests__/AllToys.test.jsx (2 tests | 2 failed) 113ms
-   × 1st Deliverable > Displays all toys on startup 93ms
+ ✓ src/__tests__/Like.test.jsx (1 test) 93ms
+ ✓ src/__tests__/Donate.test.jsx (1 test) 95ms
+ ❯ src/__tests__/AllToys.test.jsx (2 tests | 2 failed) 109ms
+   × 1st Deliverable > Displays all toys on startup 90ms
      → expected [ '8 Likes', '14 Likes', …(3) ] to deeply equal [ '8 Likes ', '14 Likes ', …(3) ]
-   × 1st Deliverable > Toys aren't hardcoded 18ms
+   × 1st Deliverable > Toys aren't hardcoded 17ms
      → expected [ '2 Likes', '0 Likes', '-2 Likes' ] to deeply equal [ '2 Likes ', '0 Likes ', '-2 Likes ' ]
- ✓ src/__tests__/ToyForm.test.jsx (1 test) 123ms
+ ✓ src/__tests__/ToyForm.test.jsx (1 test) 103ms
 
 ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
 
@@ -69,6 +69,6 @@ AssertionError: expected [ '2 Likes', '0 Likes', '-2 Likes' ] to deeply equal [ 
 
  Test Files  1 failed | 3 passed (4)
       Tests  2 failed | 3 passed (5)
-   Start at  23:44:21
-   Duration  1.55s (transform 141ms, setup 978ms, collect 312ms, tests 426ms, environment 1.90s, prepare 468ms)
+   Start at  23:47:51
+   Duration  1.57s (transform 145ms, setup 1.01s, collect 226ms, tests 400ms, environment 1.98s, prepare 560ms)
 
