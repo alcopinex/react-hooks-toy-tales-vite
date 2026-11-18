@@ -1,24 +1,64 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import ToyForm from "./ToyForm";
 import ToyContainer from "./ToyContainer";
 
+const API = "http://localhost:3001/toys";
+
 function App() {
   const [showForm, setShowForm] = useState(false);
+  const [toys, setToys] = useState([]);
 
-  function handleClick() {
-    setShowForm((showForm) => !showForm);
+  // GET: fetch all toys once, on page load
+  useEffect(() => {
+    fetch(API)
+      .then((r) => r.json())
+      .then(setToys);
+  }, []);
+
+  // POST: create toy, then add the server's response to state
+  function handleAddToy(newToy) {
+    fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...newToy, likes: 0 }),
+    })
+      .then((r) => r.json())
+      .then((created) => setToys((prev) => [...prev, created]));
+  }
+
+  // DELETE: remove on the server, then filter it out of state
+  function handleDeleteToy(id) {
+    fetch(`${API}/${id}`, { method: "DELETE" }).then(() =>
+      setToys((prev) => prev.filter((toy) => toy.id !== id))
+    );
+  }
+
+  // PATCH: bump likes, then swap the updated toy in place (keeps order)
+  function handleLikeToy(toy) {
+    fetch(`${API}/${toy.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ likes: toy.likes + 1 }),
+    })
+      .then((r) => r.json())
+      .then((updated) =>
+        setToys((prev) => prev.map((t) => (t.id === updated.id ? updated : t)))
+      );
   }
 
   return (
     <>
       <Header />
-      {showForm ? <ToyForm /> : null}
+      {showForm ? <ToyForm onAddToy={handleAddToy} /> : null}
       <div className="buttonContainer">
-        <button onClick={handleClick}>Add a Toy</button>
+        <button onClick={() => setShowForm((show) => !show)}>Add a Toy</button>
       </div>
-      <ToyContainer />
+      <ToyContainer
+        toys={toys}
+        onDeleteToy={handleDeleteToy}
+        onLikeToy={handleLikeToy}
+      />
     </>
   );
 }
